@@ -2,7 +2,7 @@
 > Package created to prototype and design a challenge recommender system for StarCraf2.
 
 
-This is a brief
+sc2trainingg is a python package created as part of SC2 Training Grounds' prototyping and design process. As such, the package has two main purposes. On the one hand, it has been created to facilitate exploratory programming...
 
 ## Install
 
