@@ -58,11 +58,11 @@ nb_path: "01_load_config.ipynb"
 <h2 id="Config_settings" class="doc_header"><code>class</code> <code>Config_settings</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config_settings</code>(<strong><code>port_address</code></strong>:<code>str</code>, <strong><code>port_number</code></strong>:<code>int</code>, <strong><code>db_name</code></strong>:<code>str</code>, <strong><code>replay_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Frozen <code>dataclass</code> that describes the configuration attributes of SC2 Training Grounds</p>
-<p>|Attributes:
-|    port_adress (str): address for the server running the MongoDB service
-|    port_number (int): port number that indicates the proper service for the MongoDB service in the server.
-|    db_name (str): name of the database that needs to be accessed
-|    replay_path (str): path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
+<p>Attributes:
+    port_adress (str): address for the server running the MongoDB service
+    port_number (int): port number that indicates the proper service for the MongoDB service in the server.
+    db_name (str): name of the database that needs to be accessed
+    replay_path (str): path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
 
 </div>
 
@@ -90,7 +90,7 @@ nb_path: "01_load_config.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h1><p>In this module, the only function designed to be exported for use elsewhere is <code>load_configuration</code>. It is mainly used in <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
+<h1 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h1><p>In this module, the only function designed to be exported for use elsewhere is <code>load_configuration</code>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
 
 </div>
 </div>
@@ -110,10 +110,10 @@ nb_path: "01_load_config.ipynb"
 </blockquote>
 <p>Loads the project's <code>config.json</code> file</p>
 <p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
-<p>|Args:
-|    config_path (Path): path to the session's <code>config.json</code></p>
-<p>|Returns:
-|    <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>: frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
+<p>Args:
+    config_path (Path): path to the session's <code>config.json</code></p>
+<p>Returns:
+    <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>: frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
 
 </div>
 

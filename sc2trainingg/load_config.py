@@ -20,11 +20,11 @@ from pathlib import Path
 class Config_settings:
     """Frozen `dataclass` that describes the configuration attributes of SC2 Training Grounds
 
-    |Attributes:
-    |    port_adress (str): address for the server running the MongoDB service
-    |    port_number (int): port number that indicates the proper service for the MongoDB service in the server.
-    |    db_name (str): name of the database that needs to be accessed
-    |    replay_path (str): path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.
+    Attributes:
+        port_adress (str): address for the server running the MongoDB service
+        port_number (int): port number that indicates the proper service for the MongoDB service in the server.
+        db_name (str): name of the database that needs to be accessed
+        replay_path (str): path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.
     """
     port_address: str
     port_number: int
@@ -48,15 +48,15 @@ Config_schema = {
 def validate_config_file(file: Path, schema: Dict[str, Any]) -> bool:
     """Review if a given `file` Path fits a predefined `jsonschema`
 
-    |Args:
-    |    file (Path): the path to the file that while ve validated.
-    |    schema (Dict[str, Any]): the schema that the information needs to comply with.
-    |
-    |Returns:
-    |    bool: `True` if the file complies with the schema, `False` otherwise.
-    |
-    |Raises:
-    |   jsonschema.exceptions.SchemaError: The configuration schema is invalid.
+    Args:
+        file (Path): the path to the file that while ve validated.
+        schema (Dict[str, Any]): the schema that the information needs to comply with.
+
+    Returns:
+        bool: `True` if the file complies with the schema, `False` otherwise.
+
+    Raises:
+        jsonschema.exceptions.SchemaError: The configuration schema is invalid.
     """
 
     try:
@@ -74,14 +74,14 @@ def validate_config_file(file: Path, schema: Dict[str, Any]) -> bool:
 def open_config_file(config_path: Path) -> Dict[str, Any]:
     """Opens a json if it exists and matches a specific configuration schema.
 
-    |Args:
-    |    config_path (Path): path to the session's `config.json`
+    Args:
+        config_path (Path): path to the session's `config.json`
 
-    |Returns:
-    |    Dict[str, Any]: dictionary extracted from `config.json`.
+    Returns:
+        Dict[str, Any]: dictionary extracted from `config.json`.
 
-    |Raises:
-    |    FileNotFoundError: in case `config_path` doesn't point to an existing file.
+    Raises:
+        FileNotFoundError: in case `config_path` doesn't point to an existing file.
     """
     if (
         config_path.exists() and
@@ -98,11 +98,11 @@ def load_configurations(config_path: Path) -> Config_settings:
 
     Look for the project's `config.json` file in `config_path`, verifies that it contains the proper data and then returns a `Config_settings` object that contains the data.
 
-    |Args:
-    |    config_path (Path): path to the session's `config.json`
+    Args:
+        config_path (Path): path to the session's `config.json`
 
-    |Returns:
-    |    `Config_settings`: frozen `dataclass` containing the data extracted from `config.json`.
+    Returns:
+        `Config_settings`: frozen `dataclass` containing the data extracted from `config.json`.
     """
     config_dict = open_config_file(config_path)
     return Config_settings(
