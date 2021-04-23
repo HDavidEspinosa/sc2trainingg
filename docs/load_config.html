@@ -58,7 +58,7 @@ nb_path: "01_load_config.ipynb"
 <h2 id="Config_settings" class="doc_header"><code>class</code> <code>Config_settings</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config_settings</code>(<strong><code>port_address</code></strong>:<code>str</code>, <strong><code>port_number</code></strong>:<code>int</code>, <strong><code>db_name</code></strong>:<code>str</code>, <strong><code>replay_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Frozen <code>dataclass</code> that describes the configuration attributes of SC2 Training Grounds</p>
-<p>Attributes:
+<p><strong>Attributes:</strong>
     port_adress (str): address for the server running the MongoDB service
     port_number (int): port number that indicates the proper service for the MongoDB service in the server.
     db_name (str): name of the database that needs to be accessed
@@ -106,13 +106,14 @@ nb_path: "01_load_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
+<h4 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
 </blockquote>
 <p>Loads the project's <code>config.json</code> file</p>
 <p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
-<p>Args:
+<hr>
+<p><em>Args:</em>
     config_path (Path): path to the session's <code>config.json</code></p>
-<p>Returns:
+<p><em>Returns</em>:
     <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>: frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
 
 </div>
