@@ -90,7 +90,7 @@ nb_path: "01_load_config.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h1><p>In this module, the only function designed to be exported for use elsewhere is <code>load_configuration</code>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
+<h2 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h2><p>In this module, the only function designed to be exported for use elsewhere is <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
 
 </div>
 </div>
@@ -106,7 +106,7 @@ nb_path: "01_load_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
+<h4 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
 </blockquote>
 <p>Loads the project's <code>config.json</code> file</p>
 <p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
@@ -153,44 +153,6 @@ nb_path: "01_load_config.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Config_settings(port_address=&#39;localhost&#39;, port_number=27017, db_name=&#39;TEST_library&#39;, replay_path=&#39;C:\\Users\\david\\Documents\\phdcode\\sc2trainingg\\test&#39;)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_example</span> <span class="o">=</span> <span class="n">Config_settings</span><span class="p">(</span>
-    <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
-    <span class="mi">27017</span><span class="p">,</span>
-    <span class="s2">&quot;TEST_library&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">Users</span><span class="se">\\</span><span class="s2">david</span><span class="se">\\</span><span class="s2">Documents</span><span class="se">\\</span><span class="s2">phdcode</span><span class="se">\\</span><span class="s2">sc2trainingg</span><span class="se">\\</span><span class="s2">test&quot;</span>
-    <span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">test_eq_type</span><span class="p">(</span><span class="n">load_configurations</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s1">&#39;config.json&#39;</span><span class="p">)),</span> <span class="n">test_example</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>None
 </pre>
 </div>
 </div>

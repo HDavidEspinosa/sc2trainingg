@@ -31,70 +31,36 @@ nb_path: "index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>sc2trainingg</code> is a python package created as part of SC2 Training Grounds' prototyping and design process. As such, the package has two main purposes. On the one hand, it has been created to facilitate exploratory programming ... (Beth Kery &amp; Myers, 2017; Howard &amp; Gugger, 2020, pp. 21-23)</p>
+<p><code>sc2trainingg</code> is part of the doctoral research project "Encouraging Play Experience Expansion Through Machine-Learning-based Recommendations". This creative practice project revolves around the design of "SC2 Training Grounds", a challenge recommendation system for StarCraft II. 
+This package and its documentation describe the system's main back-end processes and components. Its purpose is to inspire and validate the application's design based on the features and limitations of existing resources. 
+Hence, this package includes components that illustrate and describe the following stages of the application:</p>
+<ol>
+<li>Replay data ingestion and database building (see <code>load_config</code> and <code>ingest</code> modules).</li>
+<li>Replay data pre-processing and cleaning (see <code>match_df</code> and <code>players_df</code> modules).</li>
+<li>Player clustering (see <code>pclustering</code> module).</li>
+<li>Training of player classification model (see <code>classifier</code> module).</li>
+<li>Validation of the model (see <code>classifier_val</code> module)</li>
+<li>Game challenge ingestion and database building (see <code>challenge_process</code> module).</li>
+<li>Recommendation generation (see <code>recommender</code> module).</li>
+</ol>
+<p>Based on these components, I can catalogue the information that I can use to inform the application's user experience design. Additionally, I can better understand the application requirements to integrate them organically to said experience.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Install">Install<a class="anchor-link" href="#Install"> </a></h2>
+<h2 id="Usage">Usage<a class="anchor-link" href="#Usage"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install sc2trainingg</code></p>
+<p>Here I will describe the use of the package.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Fill me in please! Don't forget code examples:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">say_hello</span><span class="p">(</span><span class="s1">&#39;Hernan&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>&#39;Hello Hernan&#39;</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 </div>
  
 
