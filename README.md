@@ -1,3 +1,4 @@
+
 # sc2trainingg
 > Package created to prototype and design a challenge recommender system for StarCraf2.
 

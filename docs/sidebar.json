@@ -1,6 +1,8 @@
 {
   "sc2trainingg": {
     "Overview": "/",
-    "module name here": "core.html"
+    "sc2trainingg": "core.html",
+    "load_config": "load_config.html",
+    "ingest": "ingest.html"
   }
 }

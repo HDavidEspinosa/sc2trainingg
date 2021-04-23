@@ -1,0 +1,9 @@
+{
+    "DB_NAME": "TEST_library",
+    "STEP_MULT": 22,
+    "MATCH_UPS": [],
+    "SC2_PATH": "C:\\Program Files (x86)\\StarCraft II",
+    "PORT_ADDRESS": "localhost",
+    "PORT_NUMBER": 27017,
+    "REPLAY_PATH": "C:\\Users\\david\\Documents\\phdcode\\sc2trainingg\\test"
+}

@@ -10,8 +10,14 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: module name here
+      title: sc2trainingg
       url: core.html
+    - output: web,pdf
+      title: load_config
+      url: load_config.html
+    - output: web,pdf
+      title: ingest
+      url: ingest.html
     output: web
     title: sc2trainingg
   output: web

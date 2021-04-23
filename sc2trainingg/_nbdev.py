@@ -2,9 +2,15 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"say_hello": "00_core.ipynb"}
+index = {"say_hello": "00_core.ipynb",
+         "Config_settings": "01_load_config.ipynb",
+         "validate_config_file": "01_load_config.ipynb",
+         "Config_schema": "01_load_config.ipynb",
+         "open_config_file": "01_load_config.ipynb",
+         "load_configurations": "01_load_config.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "load_config.py"]
 
 doc_url = "https://HDavidEspinosa.github.io/sc2trainingg/"
 
