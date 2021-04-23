@@ -26,6 +26,305 @@ nb_path: "02_ingest.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Loading according to local config.json
+&lt;class &#39;pymongo.collection.Collection&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Player_data" class="doc_header"><code>class</code> <code>Player_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L40" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Player_data</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>number</code></strong>:<code>int</code>, <strong><code>race</code></strong>:<code>str</code>, <strong><code>result</code></strong>:<code>str</code>)</p>
+</blockquote>
+<p>Immutable dataclass that contains Information that describes a
+player's attributes in a match.</p>
+<h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p><code>name: str</code>
+    The player's user name.
+<code>number: int</code>
+    Player number in the match. In a 1v1, match there would be a
+    Player 1 and 2.
+<code>race: str</code>
+    The game race (Protoss, Terran, Zerg) with which the player
+    played this match.
+<code>result: str</code>
+    Variable descriving whether the player was the matches winner
+    ('Win') or loser ('Loss')</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Replay_data" class="doc_header"><code>class</code> <code>Replay_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L65" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Replay_data</code>(<strong><code>replay_name</code></strong>:<code>str</code>, <strong><code>replay_id</code></strong>:<code>str</code>, <strong><code>date_time</code></strong>:<code>datetime</code>, <strong><code>match_type</code></strong>:<code>str</code>, <strong><code>game_release</code></strong>:<code>str</code>, <strong><code>map_name</code></strong>:<code>str</code>, <strong><code>category</code></strong>:<code>str</code>, <strong><code>winner</code></strong>:<code>str</code>, <strong><code>players</code></strong>:<code>Tuple</code>[<a href="/sc2trainingg/ingest.html#Player_data"><code>Player_data</code></a>, <code>Ellipsis</code>])</p>
+</blockquote>
+<p>Immutable dataclass that contains information summarising a
+match's main attributes.</p>
+<h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p><code>replay_name: str</code>
+    Absolute path of where the Replay was stored when uploaded.
+<code>replay_id: str</code>
+    Name of the SC2Replay file.
+<code>date_time: datetime</code>
+    Date and time when the match was played and recorded.
+<code>match_type: str</code>
+    Descrives the team configuration of the match (eg '1v1', '2v2').
+<code>game_release: str</code>
+    Version and patch number for the game release where the match
+    played.
+<code>map_name: str</code>
+    Name of the match's map.
+<code>category: str</code>
+    Descrives if the match was 'Ladder' or other type of match.
+<code>winner: str</code>
+    User name of the match's winner
+<code>players: Tuple[Player_data, ...]</code>
+    Summarised information of the match's players (see Player_data
+    class).</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="extend_player_info" class="doc_header"><code>extend_player_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L105" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_player_info</code>(<strong><code>participant</code></strong>:<code>Participant</code>)</p>
+</blockquote>
+<p>Extracts the players' data from a Participant Object, into a
+Player_data instance.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>participant: sc2reader.objects.Participant</code>
+    Participant object containing all data related to a SC2Player</p>
+<h2 id="Returns">Returns<a class="anchor-link" href="#Returns"> </a></h2><p><a href="/sc2trainingg/ingest.html#Player_data"><code>Player_data</code></a>
+    Summary of a player's attributes on a match.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_replay_info" class="doc_header"><code>get_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replay_info</code>(<strong><code>replay</code></strong>:<code>Replay</code>)</p>
+</blockquote>
+<p>Replay_data dataclass instance with a replay's general
+information.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>replay: sc2reader.resources.Replay</code>
+    Replay object to be analysed.</p>
+<h2 id="Returns">Returns<a class="anchor-link" href="#Returns"> </a></h2><p><a href="/sc2trainingg/ingest.html#Replay_data"><code>Replay_data</code></a>
+    Summary of a matches main descriptive information.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="not_replay_duplicate" class="doc_header"><code>not_replay_duplicate</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>not_replay_duplicate</code>(<strong><code>replay</code></strong>:<code>Replay</code>, <strong><code>collection_</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
+</blockquote>
+<p>Verify that the replay does not exist in a collection.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>replay: sc2reader.resources.Replay</code>
+    The replay being cheked
+<code>collection_: pymongo.collection.Collection</code>
+    The collection where the existance check is being performed.</p>
+<h2 id="ReturnS">ReturnS<a class="anchor-link" href="#ReturnS"> </a></h2><p><code>bool</code>
+    True if the replay is not in the collection, False if it is.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_replays_data_set" class="doc_header"><code>get_replays_data_set</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replays_data_set</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>, <strong><code>collection_</code></strong>:<code>Collection</code>)</p>
+</blockquote>
+<p>Build a generator that can yield a group of Replay_data
+instances that represent a the descriptive information of a set
+of replays that are found by an sc2reader replay generator
+and that have not been already added to a specific collection.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>rp_gen: Generator</code>
+    a sc2reader.resources.Replay generator that yields
+    the replays found in the CONFIG.replay_path.</p>
+<p><code>collection_: pymongo.collection.Collection</code>
+    the database collection that could contain the replays</p>
+<h2 id="Return">Return<a class="anchor-link" href="#Return"> </a></h2><p><code>Generator</code>
+    Yields Replay_data instances.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="build_replay_info" class="doc_header"><code>build_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_replay_info</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>=<em><code>load_all</code></em>, <strong><code>db_collection</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
+</blockquote>
+<p>Triggers the search for new replays at CONFIG.replay_path. Adds the
+information description of the replays to the a data collection within
+a MongoDB data base, if they are not in the database already.</p>
+<h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>rp_gen: Generator = REPLAY_GEN</code>
+    sc2reader.resources.Replay generator that yields the replays found
+    in the CONFIG.replay_path.
+<code>db_collection:pymongo.collection.Collection = replays_info</code>
+    the database where the function adds the new documents.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="build_reaper_collections" class="doc_header"><code>build_reaper_collections</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L230" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_reaper_collections</code>()</p>
+</blockquote>
+<p>Calls the ingest function on the sc2reaper package. Make sure
+you install the package from <a href="https://github.com/miguelgondu/sc2reaper">https://github.com/miguelgondu/sc2reaper</a>
+in your environment before running.</p>
+<h2 id="Raises">Raises<a class="anchor-link" href="#Raises"> </a></h2><p><code>ImportError</code>
+    If sc2reaper is not installed in the environment.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 </div>
     {% endraw %}
 

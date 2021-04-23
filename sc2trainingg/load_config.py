@@ -48,7 +48,7 @@ Config_schema = {
 def validate_config_file(file: Path, schema: Dict[str, Any]) -> bool:
     """Review if a given `file` Path fits a predefined `jsonschema`
 
-    Args:
+    **Args:**
         file (Path): the path to the file that while ve validated.
         schema (Dict[str, Any]): the schema that the information needs to comply with.
 
@@ -73,6 +73,8 @@ def validate_config_file(file: Path, schema: Dict[str, Any]) -> bool:
 # Internal Cell
 def open_config_file(config_path: Path) -> Dict[str, Any]:
     """Opens a json if it exists and matches a specific configuration schema.
+
+    ----
 
     Args:
         config_path (Path): path to the session's `config.json`
