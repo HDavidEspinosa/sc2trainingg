@@ -38,7 +38,7 @@ nb_path: "01_load_config.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This configuration file contains the information other modules such as <code>ingest</code> use to locate the replays that training grounds will process, the binary for StarCraft II, and the configuration data for the MongoDB database.</p>
+<p>This module provides the tools to open and load sc2trainingg configuration file. The <code>config.json</code> file contains the information other modules such as <code>ingest</code> use to locate the replays that training grounds will process, the binary for StarCraft II, and the configuration data for the MongoDB database.</p>
 <p>This information is stored in a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object.</p>
 
 </div>
@@ -59,10 +59,10 @@ nb_path: "01_load_config.ipynb"
 </blockquote>
 <p>Frozen <code>dataclass</code> that describes the configuration attributes of SC2 Training Grounds</p>
 <p><strong>Attributes:</strong>
-    port_adress (str): address for the server running the MongoDB service
-    port_number (int): port number that indicates the proper service for the MongoDB service in the server.
-    db_name (str): name of the database that needs to be accessed
-    replay_path (str): path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
+    _port<em>adress (str):</em> address for the server running the MongoDB service
+    _port<em>number (int):</em> port number that indicates the proper service for the MongoDB service in the server.
+    _db<em>name (str):</em> name of the database that needs to be accessed
+    _replay<em>path (str):</em> path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
 
 </div>
 
@@ -111,10 +111,10 @@ nb_path: "01_load_config.ipynb"
 <p>Loads the project's <code>config.json</code> file</p>
 <p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
 <hr>
-<p><em>Args:</em>
-    config_path (Path): path to the session's <code>config.json</code></p>
-<p><em>Returns</em>:
-    <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>: frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
+<p><strong>Args:</strong>
+    _config<em>path (Path):</em> path to the session's <code>config.json</code></p>
+<p><strong>Returns:</strong>
+    _<a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>:_ frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
 
 </div>
 

@@ -21,10 +21,10 @@ class Config_settings:
     """Frozen `dataclass` that describes the configuration attributes of SC2 Training Grounds
 
     **Attributes:**
-        _port_adress (str):_ address for the server running the MongoDB service
-        _port_number (int):_ port number that indicates the proper service for the MongoDB service in the server.
-        _db_name (str):_ name of the database that needs to be accessed
-        _replay_path (str):_ path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.
+        *port_adress (str):* address for the server running the MongoDB service
+        *port_number (int):* port number that indicates the proper service for the MongoDB service in the server.
+        *db_name (str):* name of the database that needs to be accessed
+        *replay_path (str):* path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.
     """
     port_address: str
     port_number: int
@@ -101,10 +101,10 @@ def load_configurations(config_path: Path) -> Config_settings:
     ----
 
     **Args:**
-        _config_path (Path):_ path to the session's `config.json`
+        *config_path (Path):* path to the session's `config.json`
 
     **Returns:**
-        _`Config_settings`:_ frozen `dataclass` containing the data extracted from `config.json`.
+        *`Config_settings`:* frozen `dataclass` containing the data extracted from `config.json`.
     """
     config_dict = open_config_file(config_path)
     return Config_settings(
