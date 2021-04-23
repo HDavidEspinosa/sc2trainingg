@@ -6,8 +6,8 @@ title: ingest
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "This module contains the tools needed to process a set of StarCraft II replays. This process entails extracting various features that describe each players' performance during a 1v1 online match and organising all the information in a set of collections that compose a MongoDB database."
-description: "This module contains the tools needed to process a set of StarCraft II replays. This process entails extracting various features that describe each players' performance during a 1v1 online match and organising all the information in a set of collections that compose a MongoDB database."
+summary: "This module contains the tools needed to extract game-play data from a set of StarCraft II replays. This process entails extracting various features that describe each players' performance during a 1v1 online match and organising all the information in a set of collections that compose a MongoDB database."
+description: "This module contains the tools needed to extract game-play data from a set of StarCraft II replays. This process entails extracting various features that describe each players' performance during a 1v1 online match and organising all the information in a set of collections that compose a MongoDB database."
 nb_path: "02_ingest.ipynb"
 ---
 <!--
@@ -51,6 +51,78 @@ nb_path: "02_ingest.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><code>ingest</code> uses three modules to carry on its principal functions.</p>
+<ol>
+<li>It uses <a href="https://www.mongodb.com/">MongoDB</a> and <a href="https://pymongo.readthedocs.io/en/stable/">pymongo</a> to configure a document-based database where it stores the information of the replays. </li>
+<li>It uses <a href="https://github.com/miguelgondu/sc2reaper">sc2reaper (Gonzalez Duque &amp; Arbelaez Echeverri, 2019)</a> to extract and load various defaul collections of information to the database (i.e. actions, players, replays, scores, and states). </li>
+<li>It uses <a href="https://pypi.org/project/sc2reader/#history">sc2reader (Leung, 2020)</a> to extract information about the players' username so that the challenges can later be grouped by players. In this case <code>ingest</code> stores this extra information in an additional collection (i.e. replays_info) wich extends the database where the previous collections exist. </li>
+</ol>
+<p>This module organises the gameplay data into the following collections:</p>
+<ul>
+<li>actions</li>
+<li>players</li>
+<li>replays = summary of the replays that have been processed.</li>
+<li>states</li>
+<li>scores</li>
+<li>replays_info = summary of the replays that have been processed that includes usernames.</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Functioning">Functioning<a class="anchor-link" href="#Functioning"> </a></h2><p>Before anything else, this module looks for the local <code>config.json</code> file and loads its information into a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object using the <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a> function from the <code>load_config</code> module.</p>
+<p>With this information at had the module configures the MongoDB client it needs to store the replay data.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Definition of the initial data needed to function</span>
+<span class="n">CONFIG_PATH</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/Users/david/Documents/phdcode/sc2trainingg&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;config.json&quot;</span>
+<span class="n">CONFIG</span> <span class="o">=</span> <span class="n">load_configurations</span><span class="p">(</span><span class="n">CONFIG_PATH</span><span class="p">)</span>
+
+<span class="c1"># Define the client and data base to work with MongoDB</span>
+<span class="n">DB_Client</span> <span class="o">=</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">MongoClient</span><span class="p">(</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">port_address</span><span class="p">,</span> <span class="n">CONFIG</span><span class="o">.</span><span class="n">port_number</span><span class="p">)</span>
+<span class="n">DB</span> <span class="o">=</span> <span class="n">DB_Client</span><span class="p">[</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">db_name</span><span class="p">]</span>
+<span class="n">replays_info</span> <span class="o">=</span> <span class="n">DB</span><span class="p">[</span><span class="s1">&#39;replays_info&#39;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">replays_info</span><span class="p">))</span>
+
+<span class="c1"># Define the dependency the default to sc2reader</span>
+<span class="k">assert</span> <span class="n">Path</span><span class="p">(</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">replay_path</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">(),</span> <span class="s2">&quot;Invalid replay path&quot;</span>
+<span class="n">REPLAY_GEN</span> <span class="o">=</span> <span class="n">sc2reader</span><span class="o">.</span><span class="n">load_replays</span><span class="p">(</span><span class="n">CONFIG</span><span class="o">.</span><span class="n">replay_path</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pymongo.collection.Collection&#39;&gt;
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -62,7 +134,7 @@ nb_path: "02_ingest.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Player_data" class="doc_header"><code>class</code> <code>Player_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L40" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Player_data</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>number</code></strong>:<code>int</code>, <strong><code>race</code></strong>:<code>str</code>, <strong><code>result</code></strong>:<code>str</code>)</p>
+<h2 id="Player_data" class="doc_header"><code>class</code> <code>Player_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L41" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Player_data</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>number</code></strong>:<code>int</code>, <strong><code>race</code></strong>:<code>str</code>, <strong><code>result</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Immutable dataclass that contains Information that describes a
 player's attributes in a match.</p>
@@ -99,7 +171,7 @@ player's attributes in a match.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Replay_data" class="doc_header"><code>class</code> <code>Replay_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L65" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Replay_data</code>(<strong><code>replay_name</code></strong>:<code>str</code>, <strong><code>replay_id</code></strong>:<code>str</code>, <strong><code>date_time</code></strong>:<code>datetime</code>, <strong><code>match_type</code></strong>:<code>str</code>, <strong><code>game_release</code></strong>:<code>str</code>, <strong><code>map_name</code></strong>:<code>str</code>, <strong><code>category</code></strong>:<code>str</code>, <strong><code>winner</code></strong>:<code>str</code>, <strong><code>players</code></strong>:<code>Tuple</code>[<a href="/sc2trainingg/ingest.html#Player_data"><code>Player_data</code></a>, <code>Ellipsis</code>])</p>
+<h2 id="Replay_data" class="doc_header"><code>class</code> <code>Replay_data</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L66" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Replay_data</code>(<strong><code>replay_name</code></strong>:<code>str</code>, <strong><code>replay_id</code></strong>:<code>str</code>, <strong><code>date_time</code></strong>:<code>datetime</code>, <strong><code>match_type</code></strong>:<code>str</code>, <strong><code>game_release</code></strong>:<code>str</code>, <strong><code>map_name</code></strong>:<code>str</code>, <strong><code>category</code></strong>:<code>str</code>, <strong><code>winner</code></strong>:<code>str</code>, <strong><code>players</code></strong>:<code>Tuple</code>[<a href="/sc2trainingg/ingest.html#Player_data"><code>Player_data</code></a>, <code>Ellipsis</code>])</p>
 </blockquote>
 <p>Immutable dataclass that contains information summarising a
 match's main attributes.</p>
@@ -145,7 +217,7 @@ match's main attributes.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="extend_player_info" class="doc_header"><code>extend_player_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L105" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_player_info</code>(<strong><code>participant</code></strong>:<code>Participant</code>)</p>
+<h4 id="extend_player_info" class="doc_header"><code>extend_player_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L106" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>extend_player_info</code>(<strong><code>participant</code></strong>:<code>Participant</code>)</p>
 </blockquote>
 <p>Extracts the players' data from a Participant Object, into a
 Player_data instance.</p>
@@ -175,7 +247,7 @@ Player_data instance.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_replay_info" class="doc_header"><code>get_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replay_info</code>(<strong><code>replay</code></strong>:<code>Replay</code>)</p>
+<h4 id="get_replay_info" class="doc_header"><code>get_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L128" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replay_info</code>(<strong><code>replay</code></strong>:<code>Replay</code>)</p>
 </blockquote>
 <p>Replay_data dataclass instance with a replay's general
 information.</p>
@@ -205,7 +277,7 @@ information.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="not_replay_duplicate" class="doc_header"><code>not_replay_duplicate</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>not_replay_duplicate</code>(<strong><code>replay</code></strong>:<code>Replay</code>, <strong><code>collection_</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
+<h4 id="not_replay_duplicate" class="doc_header"><code>not_replay_duplicate</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L159" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>not_replay_duplicate</code>(<strong><code>replay</code></strong>:<code>Replay</code>, <strong><code>collection_</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
 </blockquote>
 <p>Verify that the replay does not exist in a collection.</p>
 <h2 id="Parameters">Parameters<a class="anchor-link" href="#Parameters"> </a></h2><p><code>replay: sc2reader.resources.Replay</code>
@@ -236,7 +308,7 @@ information.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_replays_data_set" class="doc_header"><code>get_replays_data_set</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L184" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replays_data_set</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>, <strong><code>collection_</code></strong>:<code>Collection</code>)</p>
+<h4 id="get_replays_data_set" class="doc_header"><code>get_replays_data_set</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_replays_data_set</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>, <strong><code>collection_</code></strong>:<code>Collection</code>)</p>
 </blockquote>
 <p>Build a generator that can yield a group of Replay_data
 instances that represent a the descriptive information of a set
@@ -271,7 +343,7 @@ and that have not been already added to a specific collection.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="build_replay_info" class="doc_header"><code>build_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L207" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_replay_info</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>=<em><code>load_all</code></em>, <strong><code>db_collection</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
+<h4 id="build_replay_info" class="doc_header"><code>build_replay_info</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L208" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_replay_info</code>(<strong><code>rp_gen</code></strong>:<code>Generator</code>=<em><code>load_all</code></em>, <strong><code>db_collection</code></strong>:<code>Collection</code>=<em><code>Collection(Database(MongoClient(host=['localhost:27017'], document_class=dict, tz_aware=False, connect=True), 'TEST_library'), 'replays_info.func')</code></em>)</p>
 </blockquote>
 <p>Triggers the search for new replays at CONFIG.replay_path. Adds the
 information description of the replays to the a data collection within
@@ -303,7 +375,7 @@ a MongoDB data base, if they are not in the database already.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="build_reaper_collections" class="doc_header"><code>build_reaper_collections</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L230" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_reaper_collections</code>()</p>
+<h4 id="build_reaper_collections" class="doc_header"><code>build_reaper_collections</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/ingest.py#L231" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>build_reaper_collections</code>()</p>
 </blockquote>
 <p>Calls the ingest function on the sc2reaper package. Make sure
 you install the package from <a href="https://github.com/miguelgondu/sc2reaper">https://github.com/miguelgondu/sc2reaper</a>

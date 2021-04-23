@@ -39,11 +39,25 @@ nb_path: "01_load_config.ipynb"
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This module provides the tools to open and load sc2trainingg configuration file. The <code>config.json</code> file contains the information other modules such as <code>ingest</code> use to locate the replays that training grounds will process, the binary for StarCraft II, and the configuration data for the MongoDB database.</p>
-<p>This information is stored in a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object.</p>
+<p>Additionally, the module uses <code>jsonchema</code> to validate that the <code>config.json</code> file contains the proper fields and that the values of those fields are of the appropriate types.</p>
+<p>The information from the file is stored in a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object.</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="The-Config_settings-class">The <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> class<a class="anchor-link" href="#The-Config_settings-class"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -55,14 +69,15 @@ nb_path: "01_load_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Config_settings" class="doc_header"><code>class</code> <code>Config_settings</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L19" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Config_settings</code>(<strong><code>port_address</code></strong>:<code>str</code>, <strong><code>port_number</code></strong>:<code>int</code>, <strong><code>db_name</code></strong>:<code>str</code>, <strong><code>replay_path</code></strong>:<code>str</code>)</p>
+<h3 id="Config_settings" class="doc_header"><code>class</code> <code>Config_settings</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L19" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Config_settings</code>(<strong><code>port_address</code></strong>:<code>str</code>, <strong><code>port_number</code></strong>:<code>int</code>, <strong><code>db_name</code></strong>:<code>str</code>, <strong><code>replay_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 <p>Frozen <code>dataclass</code> that describes the configuration attributes of SC2 Training Grounds</p>
+<hr>
 <p><strong>Attributes:</strong>
-    _port<em>adress (str):</em> address for the server running the MongoDB service
-    _port<em>number (int):</em> port number that indicates the proper service for the MongoDB service in the server.
-    _db<em>name (str):</em> name of the database that needs to be accessed
-    _replay<em>path (str):</em> path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
+    <em><code>port_adress (str)</code>:</em> address for the server running the MongoDB service
+    <em><code>port_number (int)</code>:</em> port number that indicates the proper service for the MongoDB service in the server.
+    <em><code>db_name (str)</code>:</em> name of the database that needs to be accessed
+    <em><code>replay_path (str)</code>:</em> path to the folder containing the SC2 replays to process. Use absolute path to prevent problems.</p>
 
 </div>
 
@@ -74,20 +89,6 @@ nb_path: "01_load_config.ipynb"
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Additionally, the module uses <code>jsonchema</code> to validate that the <code>config.json</code> file contains the proper fields and that the values of those fields are of the appropriate types.</p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h2><p>In this module, the only function designed to be exported for use elsewhere is <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
@@ -99,30 +100,6 @@ nb_path: "01_load_config.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L96" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
-</blockquote>
-<p>Loads the project's <code>config.json</code> file</p>
-<p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
-<hr>
-<p><strong>Args:</strong>
-    _config<em>path (Path):</em> path to the session's <code>config.json</code></p>
-<p><strong>Returns:</strong>
-    _<a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>:_ frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -130,9 +107,39 @@ nb_path: "01_load_config.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h3 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L98" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
+</blockquote>
+<p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
+<hr>
+<p><strong>Args:</strong>
+    <em><code>config_path (Path)</code>:</em> path to the session's <code>config.json</code></p>
+<p><strong>Returns:</strong>
+    <em><a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a>:</em> frozen <code>dataclass</code> containing the data extracted from <code>config.json</code>.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Example">Example<a class="anchor-link" href="#Example"> </a></h4><p>In the following code <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a> is used to load the data from a <code>config.json</code> in the project's folder.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
