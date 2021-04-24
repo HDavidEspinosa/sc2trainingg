@@ -18,7 +18,11 @@ from pathlib import Path
 # to assure inmutability.
 @dataclass(frozen=True)
 class Config_settings:
-    """Frozen `dataclass` that describes the configuration attributes of SC2 Training Grounds
+    """
+
+    ---
+
+    Frozen `dataclass` that describes the configuration attributes of SC2 Training Grounds
 
     ---
 
@@ -96,7 +100,10 @@ def open_config_file(config_path: Path) -> Dict[str, Any]:
 
 # Cell
 def load_configurations(config_path: Path) -> Config_settings:
-    """Look for the project's `config.json` file in `config_path`, verifies that it contains the proper data and then returns a `Config_settings` object that contains the data.
+    """
+    ---
+
+    Look for the project's `config.json` file in `config_path`, verifies that it contains the proper data and then returns a `Config_settings` object that contains the data.
 
     ----
 

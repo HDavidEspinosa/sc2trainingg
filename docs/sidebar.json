@@ -2,7 +2,7 @@
   "sc2trainingg": {
     "Overview": "/",
     "sc2trainingg": "core.html",
-    "load_config": "load_config.html",
-    "ingest": "ingest.html"
+    "The `load_config` module": "load_config.html",
+    "The `ingest` Module": "ingest.html"
   }
 }

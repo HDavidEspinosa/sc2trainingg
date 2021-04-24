@@ -13,10 +13,10 @@ entries:
       title: sc2trainingg
       url: core.html
     - output: web,pdf
-      title: load_config
+      title: The `load_config` module
       url: load_config.html
     - output: web,pdf
-      title: ingest
+      title: The `ingest` Module
       url: ingest.html
     output: web
     title: sc2trainingg

@@ -1,6 +1,6 @@
 ---
 
-title: load_config
+title: The `load_config` module
 
 
 keywords: fastai
@@ -71,6 +71,7 @@ nb_path: "01_load_config.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h3 id="Config_settings" class="doc_header"><code>class</code> <code>Config_settings</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L19" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>Config_settings</code>(<strong><code>port_address</code></strong>:<code>str</code>, <strong><code>port_number</code></strong>:<code>int</code>, <strong><code>db_name</code></strong>:<code>str</code>, <strong><code>replay_path</code></strong>:<code>str</code>)</p>
 </blockquote>
+<hr>
 <p>Frozen <code>dataclass</code> that describes the configuration attributes of SC2 Training Grounds</p>
 <hr>
 <p><strong>Attributes:</strong>
@@ -91,7 +92,7 @@ nb_path: "01_load_config.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Module's-Main-Functions">Module's Main Functions<a class="anchor-link" href="#Module's-Main-Functions"> </a></h2><p>In this module, the only function designed to be exported for use elsewhere is <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
+<h2 id="The-Module's-Exported-Functions">The Module's Exported Functions<a class="anchor-link" href="#The-Module's-Exported-Functions"> </a></h2><p>In this module, the only function designed to be exported for use elsewhere is <a href="/sc2trainingg/load_config.html#load_configurations"><code>load_configurations</code></a>. This function is used in the <code>ingest</code> module to open and load the project's <code>config.json</code> file.</p>
 
 </div>
 </div>
@@ -114,8 +115,9 @@ nb_path: "01_load_config.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h3 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L98" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
+<h3 id="load_configurations" class="doc_header"><code>load_configurations</code><a href="https://github.com/HDavidEspinosa/sc2trainingg/tree/master/sc2trainingg/load_config.py#L102" class="source_link" style="float:right">[source]</a></h3><blockquote><p><code>load_configurations</code>(<strong><code>config_path</code></strong>:<code>Path</code>)</p>
 </blockquote>
+<hr>
 <p>Look for the project's <code>config.json</code> file in <code>config_path</code>, verifies that it contains the proper data and then returns a <a href="/sc2trainingg/load_config.html#Config_settings"><code>Config_settings</code></a> object that contains the data.</p>
 <hr>
 <p><strong>Args:</strong>

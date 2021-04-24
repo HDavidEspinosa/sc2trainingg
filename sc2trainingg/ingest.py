@@ -30,67 +30,64 @@ CONFIG = load_configurations(CONFIG_PATH)
 DB_Client = pymongo.MongoClient(CONFIG.port_address, CONFIG.port_number)
 DB = DB_Client[CONFIG.db_name]
 replays_info = DB['replays_info']
-print(type(replays_info))
+
 
 # Define the dependency the default to sc2reader
 assert Path(CONFIG.replay_path).exists(), "Invalid replay path"
 REPLAY_GEN = sc2reader.load_replays(CONFIG.replay_path)
 
+
 # Cell
-# Define the inmutable dataclasses for each replay's data
 @dataclass(frozen=True)
 class Player_data:
     """
     Immutable dataclass that contains Information that describes a
     player's attributes in a match.
 
-    Attributes
-    ----------
-    `name: str`
-        The player's user name.
-    `number: int`
-        Player number in the match. In a 1v1, match there would be a
-        Player 1 and 2.
-    `race: str `
-        The game race (Protoss, Terran, Zerg) with which the player
-        played this match.
-    `result: str`
-        Variable descriving whether the player was the matches winner
-        ('Win') or loser ('Loss')
+    *Attributes:*
+        - name (str):
+            The player's user name.
+        - number (int):
+            Player number in the match. In a 1v1, match there would be a Player 1 and 2.
+        - race (str):
+            The game race (Protoss, Terran, Zerg) with which the player played this match.
+        - result (str):
+            Variable descriving whether the player was the matches winner ('Win') or loser ('Loss').
+
     """
     name: str
     number: int
     race: str
     result: str
 
+# Cell
 @dataclass(frozen=True)
 class Replay_data:
     """
     Immutable dataclass that contains information summarising a
     match's main attributes.
 
-    Attributes
-    ----------
-    `replay_name: str`
-        Absolute path of where the Replay was stored when uploaded.
-    `replay_id: str`
-        Name of the SC2Replay file.
-    `date_time: datetime`
-        Date and time when the match was played and recorded.
-    `match_type: str`
-        Descrives the team configuration of the match (eg '1v1', '2v2').
-    `game_release: str`
-        Version and patch number for the game release where the match
-        played.
-    `map_name: str`
-        Name of the match's map.
-    `category: str`
-        Descrives if the match was 'Ladder' or other type of match.
-    `winner: str`
-        User name of the match's winner
-    `players: Tuple[Player_data, ...]`
-        Summarised information of the match's players (see Player_data
-        class).
+    *Attributes:*
+        - replay_name (str):
+            Absolute path of where the Replay was stored when uploaded.
+        - replay_id (str):
+            Name of the SC2Replay file.
+        - date_time (datetime):
+            Date and time when the match was played and recorded.
+        - match_type (str):
+            Descrives the team configuration of the match (eg '1v1', '2v2').
+        - game_release (str):
+            Version and patch number for the game release where the match
+            played.
+        - map_name (str):
+            Name of the match's map.
+        - category (str):
+            Descrives if the match was 'Ladder' or other type of match.
+        - winner (str):
+            User name of the match's winner
+        - players (Tuple[Player_data, ...]):
+            Summarised information of the match's players (see Player_data
+            class).
     """
     replay_name: str
     replay_id: str
@@ -102,21 +99,23 @@ class Replay_data:
     winner: str
     players: Tuple[Player_data, ...]
 
+# Cell
+"""
+These auxiliar functions exists to assist the module's main functions.
+"""
 # Functions that format data according to the dataclasses
 def extend_player_info(participant: sc2reader.objects.Participant) -> Player_data:
     '''
     Extracts the players' data from a Participant Object, into a
     Player_data instance.
 
-    Parameters
-    ----------
-    `participant: sc2reader.objects.Participant`
-        Participant object containing all data related to a SC2Player
+    *Args:*
+        - participant (sc2reader.objects.Participant):
+            Participant object containing all data related to a SC2Player
 
-    Returns
-    -------
-    `Player_data`
-        Summary of a player's attributes on a match.
+    *Returns:*
+        - Player_data:
+            Summary of a player's attributes on a match.
     '''
     return Player_data(
         participant.name,
@@ -125,20 +124,19 @@ def extend_player_info(participant: sc2reader.objects.Participant) -> Player_dat
         participant.result
     )
 
+# Cell
 def get_replay_info(replay: sc2reader.resources.Replay) -> Replay_data:
     '''
     Replay_data dataclass instance with a replay's general
     information.
 
-    Parameters
-    ----------
-    `replay: sc2reader.resources.Replay`
-        Replay object to be analysed.
+    *Args:*
+        - replay (sc2reader.resources.Replay):
+            Replay object to be analysed.
 
-    Returns
-    -------
-    `Replay_data`
-        Summary of a matches main descriptive information.
+    *Returns:*
+        - Replay_data
+            Summary of a matches main descriptive information.
     '''
     file_name_regex = re.compile(r'[^\\]*[.]SC2Replay$')
 
@@ -155,33 +153,33 @@ def get_replay_info(replay: sc2reader.resources.Replay) -> Replay_data:
         tuple(extend_player_info(player) for player in tuple(replay.players))
     )
 
+# Cell
 # Functions that build the Collections within the database
 def not_replay_duplicate(replay: sc2reader.resources.Replay, collection_: pymongo.collection.Collection = replays_info) -> bool:
     '''
     Verify that the replay does not exist in a collection.
 
-    Parameters
-    -------------------
-    `replay: sc2reader.resources.Replay`
-        The replay being cheked
-    `collection_: pymongo.collection.Collection`
-        The collection where the existance check is being performed.
+    *Args:*
+        - replay (sc2reader.resources.Replay):
+            The replay being cheked
+        - collection_ (pymongo.collection.Collection):
+            The collection where the existance check is being performed.
 
-    ReturnS
-    ---------------------
-    `bool`
-        True if the replay is not in the collection, False if it is.
+    *Returns:*
+        - bool:
+            True if the replay is not in the collection, False if it is.
     '''
     if not collection_.count_documents(
         {'replay_name': replay.filename},
         limit = 1
     ):
-        print(f'New replay found: {Path(replay.filename).name} \n addint to replay_info collection.')
+        print(f'New replay found: {Path(replay.filename).name} \n adding to replay_info collection.')
         return True
     else:
         print(f'{replay.filename} already exists in the replay_info collection.')
         return False
 
+# Cell
 def get_replays_data_set(rp_gen: Generator, collection_: pymongo.collection.Collection) -> Generator:
     '''
     Build a generator that can yield a group of Replay_data
@@ -189,59 +187,67 @@ def get_replays_data_set(rp_gen: Generator, collection_: pymongo.collection.Coll
     of replays that are found by an sc2reader replay generator
     and that have not been already added to a specific collection.
 
-    Parameters
-    ---------------------
-    `rp_gen: Generator`
-        a sc2reader.resources.Replay generator that yields
-        the replays found in the CONFIG.replay_path.
+    *Args:*
+        - rp_gen (Generator):
+            a sc2reader.resources.Replay generator that yields
+            the replays found in the CONFIG.replay_path.
+        - collection_ (pymongo.collection.Collection):
+            the database collection that could contain the replays
 
-    `collection_: pymongo.collection.Collection`
-        the database collection that could contain the replays
-
-    Return
-    -------------------
-    `Generator`
-        Yields Replay_data instances.
+    Returns:
+        - Generator:
+            Yields Replay_data instances.
     '''
     return (get_replay_info(replay) for replay in rp_gen if not_replay_duplicate(replay, collection_))
 
+# Cell
 def build_replay_info(
     rp_gen: Generator = REPLAY_GEN,
     db_collection:pymongo.collection.Collection = replays_info
-    ) -> None:
+    ) -> bool:
     '''
     Triggers the search for new replays at CONFIG.replay_path. Adds the
     information description of the replays to the a data collection within
     a MongoDB data base, if they are not in the database already.
 
-    Parameters
-    ------------------
-    `rp_gen: Generator = REPLAY_GEN`
-        sc2reader.resources.Replay generator that yields the replays found
-        in the CONFIG.replay_path.
-    `db_collection:pymongo.collection.Collection = replays_info`
-        the database where the function adds the new documents.
+    *Args:*
+        - rp_gen (Generator = REPLAY_GEN):
+            sc2reader.resources.Replay generator that yields the replays found
+            in the CONFIG.replay_path.
+        - db_collection (pymongo.collection.Collection = replays_info):
+            the database where the function adds the new documents.
+
+    *Returns:*
+        - bool:
+            True if new replays were found and added to the replay_info collection, False otherwise.
     '''
     replays_data_set = [asdict(replay_data) for replay_data in get_replays_data_set(rp_gen, db_collection) if replay_data != None]
     if replays_data_set:
         db_collection.insert_many(replays_data_set)
+        return True
     else:
         print(f'No new replays at {CONFIG.replay_path}')
+        return False
 
-def build_reaper_collections() -> None:
+
+# Cell
+def build_reaper_collections() -> bool:
     """
     Calls the ingest function on the sc2reaper package. Make sure
     you install the package from https://github.com/miguelgondu/sc2reaper
     in your environment before running.
 
-    Raises
-    ------
-    `ImportError`
-        If sc2reaper is not installed in the environment.
+    *Returns:*
+        - bool:
+            True if new replays were found and added to the multiple collections defined by sc2reaper, False otherwise.
 
+    *Raises:*
+        - ImportError:
+            If sc2reaper is not installed in the environment.
     """
     try:
         ings.ingest(CONFIG.replay_path, 4)
+        return True
     except ImportError as ime:
         print("This program needs sc2reaper to be installed before running.")
         print("Check install instructions at https://github.com/miguelgondu/sc2reaper")
@@ -249,3 +255,4 @@ def build_reaper_collections() -> None:
     except ValueError as vale:
         # If ing.ingest raises a ValueError asume reaper did not find new replays.
         print("No new .SC2Replays found by sc2reaper")
+        return False
